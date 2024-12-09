@@ -11,8 +11,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late UserDatabase database;
-  final _nameController = TextEditingController();
-  final _ageController = TextEditingController();
+  final _descController = TextEditingController();
+  final _amountController = TextEditingController();
 
   String? _selectedCategory;
   final List<String> _categories = [
@@ -32,17 +32,17 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Future<List<Transaction>> retrieveUsers() async {
-    return await database.userDAO.retrieveTransactions();
+  Future<List<Transaction>> retrieveTransactions() async {
+    return await database.transactionDAO.retrieveTransactions();
   }
 
   Future<void> addUser() async {
-    final name = _nameController.text;
-    final age = int.tryParse(_ageController.text) ?? 0;
+    final name = _descController.text;
+    final age = int.tryParse(_amountController.text) ?? 0;
 
     if (name.isNotEmpty && age > 0 && _selectedCategory != null) {
       Transaction newUser = Transaction(desc: name, amount: age, category: _selectedCategory!);
-      await database.userDAO.insertTransaction([newUser]);
+      await database.transactionDAO.insertTransaction([newUser]);
       setState(() {});
     }
   }
@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text("Покупки"),
       ),
       body: FutureBuilder<List<Transaction>>(
-        future: retrieveUsers(),
+        future: retrieveTransactions(),
         builder: (BuildContext context, AsyncSnapshot<List<Transaction>> snapshot) {
           if (snapshot.hasData) {
             return ListView.builder(
@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   key: ValueKey<int>(snapshot.data![index].id!),
                   onDismissed: (DismissDirection direction) async {
-                    await database.userDAO.deleteTransaction(snapshot.data![index].id!);
+                    await database.transactionDAO.deleteTransaction(snapshot.data![index].id!);
                     setState(() {
                       snapshot.data!.remove(snapshot.data![index]);
                     });
@@ -101,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextField(
-                      controller: _nameController,
+                      controller: _descController,
                       decoration: const InputDecoration(labelText: "Название"),
                     ),
                     DropdownButtonFormField<String>(
@@ -120,7 +120,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       },
                     ),
                     TextField(
-                      controller: _ageController,
+                      controller: _amountController,
                       decoration: const InputDecoration(labelText: "Сумма"),
                       keyboardType: TextInputType.number,
                     ),

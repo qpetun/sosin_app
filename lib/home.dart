@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _loadCategoryData() async {
-    final users = await database.userDAO.retrieveTransactions();
+    final users = await database.transactionDAO.retrieveTransactions();
     final Map<String, double> data = {};
     for (var user in users) {
       data[user.category] = (data[user.category] ?? 0) + user.amount;

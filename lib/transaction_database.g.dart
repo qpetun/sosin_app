@@ -105,7 +105,7 @@ class _$UserDatabase extends UserDatabase {
   }
 
   @override
-  TransactionDAO get userDAO {
+  TransactionDAO get transactionDAO {
     return _userDAOInstance ??= _$UserDAO(database, changeListener);
   }
 }

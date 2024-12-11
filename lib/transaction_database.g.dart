@@ -14,7 +14,7 @@ abstract class $UserDatabaseBuilderContract {
   $UserDatabaseBuilderContract addCallback(Callback callback);
 
   /// Creates the database and initializes it.
-  Future<UserDatabase> build();
+  Future<TransactionDatabase> build();
 }
 
 // ignore: avoid_classes_with_only_static_members
@@ -53,7 +53,7 @@ class _$UserDatabaseBuilder implements $UserDatabaseBuilderContract {
   }
 
   @override
-  Future<UserDatabase> build() async {
+  Future<TransactionDatabase> build() async {
     final path = name != null
         ? await sqfliteDatabaseFactory.getDatabasePath(name!)
         : ':memory:';
@@ -67,7 +67,7 @@ class _$UserDatabaseBuilder implements $UserDatabaseBuilderContract {
   }
 }
 
-class _$UserDatabase extends UserDatabase {
+class _$UserDatabase extends TransactionDatabase {
   _$UserDatabase([StreamController<String>? listener]) {
     changeListener = listener ?? StreamController<String>.broadcast();
   }

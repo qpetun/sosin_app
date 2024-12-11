@@ -10,7 +10,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late UserDatabase database;
+  late TransactionDatabase database;
   final _descController = TextEditingController();
   final _amountController = TextEditingController();
 
@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return await database.transactionDAO.retrieveTransactions();
   }
 
-  Future<void> addUser() async {
+  Future<void> addTransaction() async {
     final name = _descController.text;
     final age = int.tryParse(_amountController.text) ?? 0;
 
@@ -129,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      addUser();
+                      addTransaction();
                       Navigator.pop(context);
                     },
                     child: const Text("Добавить"),

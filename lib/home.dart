@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late UserDatabase database;
+  late TransactionDatabase database;
   Map<String, double> categoryData = {};
   DisplayMode _displayMode = DisplayMode.sum;
   final List<Color> chartColors = [

@@ -9,6 +9,6 @@ import 'entity/transaction.dart';
 part 'transaction_database.g.dart'; // the generated code will be there
 
 @Database(version: 1, entities: [Transaction])
-abstract class UserDatabase extends FloorDatabase {
+abstract class TransactionDatabase extends FloorDatabase {
   TransactionDAO get transactionDAO;
 }

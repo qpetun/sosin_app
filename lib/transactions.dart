@@ -41,8 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
     final age = int.tryParse(_amountController.text) ?? 0;
 
     if (name.isNotEmpty && age > 0 && _selectedCategory != null) {
-      Transaction newUser = Transaction(desc: name, amount: age, category: _selectedCategory!);
-      await database.transactionDAO.insertTransaction([newUser]);
+      Transaction newTransaction = Transaction(desc: name, amount: age, category: _selectedCategory!);
+      await database.transactionDAO.insertTransaction([newTransaction]);
       setState(() {});
     }
   }
